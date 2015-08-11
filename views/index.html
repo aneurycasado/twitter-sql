@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+  <div class="page-header">
+    <h1>Welcome to Twitter.js Aneury. {{heading}}.</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <img id = "myPic" width ="50%" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/4/000/16e/3f9/1d788e9.jpg"><br>
+      <b>Aneury Casado</b><br>
+      100 followers
+    </div>
+    <div class="col-md-9">
+
+      {% if showForm %}
+        <form action="/submit" method="POST">
+          <label for="name_field">Name:</label>
+          <input name="shenanigans" type="text" id="name_field" value="{{title}}"/>
+
+          <label for="text_field">Text:</label>
+          <input name="text" type="text" id="text_field" style="width: 350px;" />
+
+          <input type="submit" value="Submit" />
+        </form>
+      {% endif %}
+
+      <div id = "tcont">
+      <!-- display tweets here -->
+      {% for tweet in tweets %}
+        <div class="tweetbox" id = "{{tweet.id}}">
+          <img src="{{tweet.User.pictureUrl}}" />
+          <span class="content">
+            <a href="/users/{{tweet.User.name}}" class="by">{{tweet.User.name}}</a>
+            <a href="/users/{{tweet.User.name}}/tweets/{{tweet.id}}">{{tweet.tweet}}</a>
+          </span>
+          <div class="btn-group" data-attritbute="{{tweet.id}}" role="group" aria-label="...">
+              <button type="button" class='edit-btn' class="btn btn-default">Edit</button>
+              <button type="button" class='delete-btn' class="btn btn-default">Delete</button>
+          </div>
+        </div>
+
+      {% endfor %}
+
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
